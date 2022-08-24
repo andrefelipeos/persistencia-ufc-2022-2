@@ -48,5 +48,8 @@ public class Questao01 {
 	    }
 	    linhaAtual++;
 	}
+
+	arquivo.close();
+	entrada.close();
     }
 }

@@ -7,5 +7,7 @@ public class Questao02 {
         FileInputStream fis = new FileInputStream(args[0]);
         FileOutputStream fos = new FileOutputStream(args[1]);
         fis.transferTo(fos);
+        fis.close();
+        fos.close();
     }
 }
