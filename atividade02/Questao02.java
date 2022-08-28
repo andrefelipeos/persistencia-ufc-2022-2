@@ -1,3 +1,6 @@
+/*
+2. Escreva uma aplicação Java para receber via argumentos de linha de comando três nomes de arquivos. Deve-se gerar um novo arquivo a partir da concatenação dos dois primeiros arquivos. O nome do novo arquivo gerado é o último dos três nomes de arquivos recebidos como entrada.
+*/
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
