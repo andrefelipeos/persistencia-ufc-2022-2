@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 public class Desserializa {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		InputStream is = new FileInputStream("arquivo.txt");
+		InputStream is = new FileInputStream("objetos.ser");
 		ObjectInputStream ois = new ObjectInputStream(is);
 		while (true) {
 			try {
