@@ -27,11 +27,12 @@ public class Serializa {
 		} else {
 			listaDeFilmes = Serializa.naoInterativo();
 		}
+		Biblioteca biblioteca = new Biblioteca(listaDeFilmes);
 
 		File arquivo = new File(localDoArquivo);
 		XmlMapper xmlMapper = new XmlMapper();
 		xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-		xmlMapper.writeValue(arquivo, listaDeFilmes.get(0));
+		xmlMapper.writeValue(arquivo, biblioteca);
 	}
 
 	private static List<Filme> interativo() {

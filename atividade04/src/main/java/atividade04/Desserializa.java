@@ -14,10 +14,11 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 public class Desserializa {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		String localDoArquivo = "filmes.xml";
 		XmlMapper xmlMapper = new XmlMapper();
-		Filme filme = xmlMapper.readValue(new File("filmes.xml"), Filme.class);
+		Biblioteca biblioteca = xmlMapper.readValue(new File(localDoArquivo), Biblioteca.class);
 		
-		System.out.println(filme.toString());
+		System.out.println(biblioteca.toString());
 	}
 
 }
