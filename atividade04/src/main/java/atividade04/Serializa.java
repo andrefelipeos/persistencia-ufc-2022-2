@@ -31,7 +31,7 @@ public class Serializa {
 		File arquivo = new File(localDoArquivo);
 		XmlMapper xmlMapper = new XmlMapper();
 		xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-		xmlMapper.writeValue(arquivo, listaDeFilmes);
+		xmlMapper.writeValue(arquivo, listaDeFilmes.get(0));
 	}
 
 	private static List<Filme> interativo() {
