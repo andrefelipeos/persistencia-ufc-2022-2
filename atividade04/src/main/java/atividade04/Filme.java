@@ -7,9 +7,13 @@ package atividade04;
 
 public class Filme {
 
-	private String nome;
-	private String diretor;
-	private int ano;
+	public String nome;
+	public String diretor;
+	public int ano;
+
+	public Filme() {
+		super();
+	}
 
 	public Filme(String nome, String diretor, int ano) {
 		this.nome = nome;
