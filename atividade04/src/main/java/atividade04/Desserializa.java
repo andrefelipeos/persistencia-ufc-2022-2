@@ -7,18 +7,35 @@
 package atividade04;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public class Desserializa {
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		String localDoArquivo = "filmes.xml";
-		XmlMapper xmlMapper = new XmlMapper();
-		Biblioteca biblioteca = xmlMapper.readValue(new File(localDoArquivo), Biblioteca.class);
+	public static void main(String[] args) throws IOException, ClassNotFoundException, XMLStreamException {
+		XMLInputFactory f = XMLInputFactory.newFactory();
+		File inputFile = new File("filmes.xml");
+		XMLStreamReader sr = f.createXMLStreamReader(new FileInputStream(inputFile));
+
+		XmlMapper mapper = new XmlMapper();
+		sr.next();
+		sr.next();
+		Filme filme1 = mapper.readValue(sr, Filme.class);
+		sr.next();
+		Filme filme2 = mapper.readValue(sr, Filme.class);
+		sr.next();
+		Filme filme3 = mapper.readValue(sr, Filme.class);
+		sr.close();
 		
-		System.out.println(biblioteca.toString());
+		System.out.println(filme1.toString());
+		System.out.println(filme2.toString());
+		System.out.println(filme3.toString());
 	}
 
 }
