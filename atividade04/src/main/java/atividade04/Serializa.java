@@ -7,18 +7,24 @@
  * */
 package atividade04;
 
-import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public class Serializa {
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException, XMLStreamException {
 		List<Filme> listaDeFilmes;
 		String localDoArquivo = "filmes.xml";
 
@@ -27,12 +33,25 @@ public class Serializa {
 		} else {
 			listaDeFilmes = Serializa.naoInterativo();
 		}
-		Biblioteca biblioteca = new Biblioteca(listaDeFilmes);
 
-		File arquivo = new File(localDoArquivo);
-		XmlMapper xmlMapper = new XmlMapper();
+		XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
+		XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
+		OutputStream os = new FileOutputStream(localDoArquivo);
+		XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(os);
+
+		XmlMapper xmlMapper = new XmlMapper(xmlInputFactory);
 		xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-		xmlMapper.writeValue(arquivo, biblioteca);
+
+		sw.writeStartDocument();
+		sw.writeStartElement("root");
+
+		for (Filme filme : listaDeFilmes) {
+			xmlMapper.writeValue(sw, filme);
+		}
+
+		sw.writeEndElement();
+		sw.writeEndDocument();
+		sw.close();
 	}
 
 	private static List<Filme> interativo() {
