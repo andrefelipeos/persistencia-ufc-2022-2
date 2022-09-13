@@ -31,11 +31,17 @@ public class Desserializa {
 		Filme filme2 = mapper.readValue(sr, Filme.class);
 		sr.next();
 		Filme filme3 = mapper.readValue(sr, Filme.class);
+		sr.next();
+		Filme filme4 = mapper.readValue(sr, Filme.class);
+		sr.next();
+		Filme filme5 = mapper.readValue(sr, Filme.class);
 		sr.close();
 		
 		System.out.println(filme1.toString());
 		System.out.println(filme2.toString());
 		System.out.println(filme3.toString());
+		System.out.println(filme4.toString());
+		System.out.println(filme5.toString());
 	}
 
 }
