@@ -46,4 +46,20 @@ public class Livro {
 		return anoDaEdicao;
 	}
 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.titulo);
+		sb.append(", escrito originalmente em ");
+		sb.append(this.idiomaOriginal.toLowerCase());
+		sb.append(" por ");
+		sb.append(this.autor);
+		sb.append(".");
+		sb.append("\nEdição da editora ");
+		sb.append(this.editora);
+		sb.append(", lançada em ");
+		sb.append(this.anoDaEdicao);
+		sb.append(".");
+		return sb.toString();
+	}
+
 }
