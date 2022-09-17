@@ -13,6 +13,10 @@ public class Livro {
 	private String editora;
 	private int anoDaEdicao;
 
+	public Livro() {
+		super();
+	}
+
 	public Livro(String titulo, String autor,
 			String idiomaOriginal, String editora, int anoDaEdicao) {
 		this.titulo = titulo;
