@@ -6,21 +6,19 @@
 package atividade05.model;
 
 import java.time.Year;
-import java.util.Collection;
-import java.util.List;
 
 public class Livro {
 
 	private String titulo;
-	private Collection<String> autores;
+	private String autor;
 	private String idiomaOriginal;
 	private String editora;
 	private Year anoDaEdicao;
 
-	public Livro(String titulo, List<String> autores,
+	public Livro(String titulo, String autor,
 			String idiomaOriginal, String editora, Year anoDaEdicao) {
 		this.titulo = titulo;
-		this.autores = autores;
+		this.autor = autor;
 		this.idiomaOriginal = idiomaOriginal;
 		this.editora = editora;
 		this.anoDaEdicao = anoDaEdicao;
@@ -30,8 +28,8 @@ public class Livro {
 		return titulo;
 	}
 
-	public Collection<String> getAutores() {
-		return autores;
+	public String getAutor() {
+		return autor;
 	}
 
 	public String getIdiomaOriginal() {
