@@ -5,18 +5,16 @@
 
 package atividade05.model;
 
-import java.time.Year;
-
 public class Livro {
 
 	private String titulo;
 	private String autor;
 	private String idiomaOriginal;
 	private String editora;
-	private Year anoDaEdicao;
+	private int anoDaEdicao;
 
 	public Livro(String titulo, String autor,
-			String idiomaOriginal, String editora, Year anoDaEdicao) {
+			String idiomaOriginal, String editora, int anoDaEdicao) {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.idiomaOriginal = idiomaOriginal;
@@ -40,7 +38,7 @@ public class Livro {
 		return editora;
 	}
 
-	public Year getAnoDaEdicao() {
+	public int getAnoDaEdicao() {
 		return anoDaEdicao;
 	}
 
