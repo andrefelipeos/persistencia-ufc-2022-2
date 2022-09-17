@@ -1,3 +1,8 @@
+/*
+ * 1. Crie uma classe Java de entidade. Exemplo: Filme (id, titulo, sinopse, diretor).
+ *       - OBS: A classe não precisa implementar a interface java.io.Serializable.
+ * */
+
 package atividade05.model;
 
 import java.time.Year;
