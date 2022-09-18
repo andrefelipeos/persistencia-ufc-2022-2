@@ -24,7 +24,7 @@ public class Serializa {
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.writeValue(new File(localDoArquivo), listaDeLivros.get(0));
+		mapper.writeValue(new File(localDoArquivo), listaDeLivros);
 	}
 
 	private static List<Livro> naoInterativo() {
