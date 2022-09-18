@@ -30,18 +30,31 @@ public class Serializa {
 	private static List<Livro> naoInterativo() {
 		List<Livro> listaDeLivros = new ArrayList<Livro>();
 
-		Livro livro1 = new Livro("Ensaio sobre a cegueira",
+		listaDeLivros.add(new Livro("Ensaio sobre a cegueira",
 				"José Saramago",
 				"Português",
 				"Companhia das Letras",
-				2022);
-		Livro livro2 = new Livro("Ensaio sobre a lucidez",
+				2022));
+		listaDeLivros.add(new Livro("Ensaio sobre a lucidez",
 				"José Saramago",
 				"Português",
 				"Companhia das Letras",
-				2022);
-		listaDeLivros.add(livro1);
-		listaDeLivros.add(livro2);
+				2022));
+		listaDeLivros.add(new Livro("Me encontre",
+				"André Aciman",
+				"Inglês",
+				"Intrínseca",
+				2019));
+		listaDeLivros.add(new Livro("Cai o pano: o último caso de Poirot",
+				"Agatha Christie",
+				"Inglês",
+				"L&PM editores",
+				2021));
+		listaDeLivros.add(new Livro("A coragem de ser imperfeito",
+				"Brené Brown",
+				"Inglês",
+				"Sextante",
+				2019));
 
 		return listaDeLivros;
 	}
