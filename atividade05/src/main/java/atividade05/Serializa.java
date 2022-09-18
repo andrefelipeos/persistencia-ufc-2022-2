@@ -28,7 +28,7 @@ public class Serializa {
 	}
 
 	private static List<Livro> naoInterativo() {
-		List<Livro> listaDeFilmes = new ArrayList<Livro>();
+		List<Livro> listaDeLivros = new ArrayList<Livro>();
 
 		Livro livro1 = new Livro("Ensaio sobre a cegueira",
 				"José Saramago",
@@ -40,10 +40,10 @@ public class Serializa {
 				"Português",
 				"Companhia das Letras",
 				2022);
-		listaDeFilmes.add(livro1);
-		listaDeFilmes.add(livro2);
+		listaDeLivros.add(livro1);
+		listaDeLivros.add(livro2);
 
-		return listaDeFilmes;
+		return listaDeLivros;
 	}
 
 }
