@@ -1,3 +1,9 @@
+/*
+ * 3. Crie uma classe java de nome Desserializa para ler / desserializar os
+ * objetos Serializados na Questão 2 e exibi-los também através do uso da
+ * biblioteca Jackson.
+ * */
+
 package atividade05;
 
 import java.io.File;
