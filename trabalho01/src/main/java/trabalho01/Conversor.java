@@ -5,9 +5,18 @@
 
 package trabalho01;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 public class Conversor {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		String localDoArquivo;
 
 		if (args.length == 0) {
@@ -16,6 +25,15 @@ public class Conversor {
 		} else {
 			localDoArquivo = args[0];
 		}
+		
+		String json = new String(Files.readAllBytes(Paths.get(localDoArquivo)));
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonNode = mapper.readTree(json);
+		
+		ObjectMapper xmlMapper = new XmlMapper();
+		xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		String xml = xmlMapper.writeValueAsString(jsonNode);
+		System.out.println(xml);
 	}
 
 }
