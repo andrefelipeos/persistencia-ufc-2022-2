@@ -5,6 +5,7 @@
 
 package trabalho01;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,20 +31,20 @@ public class Conversor {
 		}
 
 		String json = new String(Files.readAllBytes(Paths.get(localDoArquivo)));
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode jsonNode = mapper.readTree(json);
+		JsonNode jsonNode = (new ObjectMapper()).readTree(json);
 
-		ObjectMapper xmlMapper = new XmlMapper();
-		xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-		String xml = xmlMapper.writeValueAsString(jsonNode);
-		System.out.println(xml);
+		/* Converte JSON para XML */
+		(new XmlMapper()).enable(SerializationFeature.INDENT_OUTPUT)
+			.writeValue(new File(localDoArquivo + ".xml"), jsonNode);
 
-		ObjectMapper csvMapper = new CsvMapper();
-		Builder csvSchemaBuilder = CsvSchema.builder();
-		jsonNode.fieldNames().forEachRemaining(fieldName -> csvSchemaBuilder.addColumn(fieldName));
-		CsvSchema esquemaCSV = csvSchemaBuilder.build().withHeader();
-		String csv = csvMapper.writerFor(JsonNode.class).with(esquemaCSV).writeValueAsString(jsonNode);
-		System.out.println(csv);
+		/* Converte JSON para CSV */
+		Builder construtorDeEsquemaCSV = CsvSchema.builder();
+		jsonNode.fieldNames().forEachRemaining(campo -> {
+				construtorDeEsquemaCSV.addColumn(campo);
+			});
+		(new CsvMapper()).writerFor(JsonNode.class)
+			.with(construtorDeEsquemaCSV.build().withHeader())
+			.writeValue(new File(localDoArquivo + ".csv"), jsonNode);
 	}
 
 }
