@@ -12,6 +12,9 @@ import java.nio.file.Paths;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public class Conversor {
@@ -25,15 +28,22 @@ public class Conversor {
 		} else {
 			localDoArquivo = args[0];
 		}
-		
+
 		String json = new String(Files.readAllBytes(Paths.get(localDoArquivo)));
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode jsonNode = mapper.readTree(json);
-		
+
 		ObjectMapper xmlMapper = new XmlMapper();
 		xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
 		String xml = xmlMapper.writeValueAsString(jsonNode);
 		System.out.println(xml);
+
+		ObjectMapper csvMapper = new CsvMapper();
+		Builder csvSchemaBuilder = CsvSchema.builder();
+		jsonNode.fieldNames().forEachRemaining(fieldName -> csvSchemaBuilder.addColumn(fieldName));
+		CsvSchema esquemaCSV = csvSchemaBuilder.build().withHeader();
+		String csv = csvMapper.writerFor(JsonNode.class).with(esquemaCSV).writeValueAsString(jsonNode);
+		System.out.println(csv);
 	}
 
 }
