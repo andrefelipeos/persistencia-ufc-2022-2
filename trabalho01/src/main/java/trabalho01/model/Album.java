@@ -1,3 +1,10 @@
+/*
+ * 1. Defina uma entidade principal com pelo menos 5 atributos e relacionada a
+ * um domínio de problema. Crie também uma classe Java para representá-la. A
+ * entidade deve estar relacionada a algo que você gosta bastante como: hobbie,
+ * esporte, pet, alimentação, educação, música, filmes, séries, redes sociais, etc.
+ * */
+
 package trabalho01.model;
 
 public class Album {

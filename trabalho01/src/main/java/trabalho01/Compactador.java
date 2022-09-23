@@ -1,3 +1,9 @@
+/*
+ * 4. Crie uma classe Java que recebe como entrada de teclado o nome de um
+ * arquivo qualquer e o compacta para o formato ZIP ou outro formato de
+ * compressão à sua escolha.
+ * */
+
 package trabalho01;
 
 import java.io.File;
