@@ -44,4 +44,16 @@ public class Aluno {
 		return telefone;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.id + " : ");
+		sb.append(this.matricula + " : ");
+		sb.append(this.nome + " : ");
+		sb.append(this.cpf + " : ");
+		sb.append(this.email + " : ");
+		sb.append(this.telefone + "\n");
+		return sb.toString();
+	}
+
 }
