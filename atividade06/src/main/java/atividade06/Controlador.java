@@ -2,6 +2,7 @@ package atividade06;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -13,7 +14,21 @@ public class Controlador {
 		Connection conexao = DriverManager.getConnection(
 				"jdbc:postgresql://localhost/persistencia",
 				"postgres", "postgres");
-		System.out.println("Conectado!");
+
+		Scanner teclado = new Scanner(System.in);
+		Aluno aluno = Controlador.defineAlunoPeloTeclado(teclado);
+
+		String sqlDeInsercao = "INSERT INTO aluno(id, cpf, matricula, nome, email, telefone) VALUES (?, ?, ?, ?, ?, ?)";
+		PreparedStatement ps = conexao.prepareStatement(sqlDeInsercao);
+
+		ps.setInt(1, aluno.getId());
+		ps.setString(2, aluno.getCpf());
+		ps.setInt(3, aluno.getMatricula());
+		ps.setString(4, aluno.getNome());
+		ps.setString(5, aluno.getEmail());
+		ps.setString(6, aluno.getTelefone());
+		ps.executeUpdate();
+
 		conexao.close();
 	}
 
