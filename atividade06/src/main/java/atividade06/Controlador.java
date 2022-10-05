@@ -29,6 +29,7 @@ public class Controlador {
 		ps.setString(6, aluno.getTelefone());
 		ps.executeUpdate();
 
+		teclado.close();
 		conexao.close();
 	}
 
@@ -41,11 +42,11 @@ public class Controlador {
 		String telefone;
 
 		System.out.print("Identificador: ");
-		id = entrada.nextInt();
+		id = Integer.parseInt(entrada.nextLine());
 		System.out.print("CPF: ");
 		cpf = entrada.nextLine();
 		System.out.print("Matrícula: ");
-		matricula = entrada.nextInt();
+		matricula = Integer.parseInt(entrada.nextLine());;
 		System.out.print("Nome: ");
 		nome = entrada.nextLine();
 		System.out.print("E-mail: ");
