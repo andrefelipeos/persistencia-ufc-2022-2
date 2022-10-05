@@ -16,6 +16,24 @@ public class Controlador {
 				"postgres", "postgres");
 
 		Scanner teclado = new Scanner(System.in);
+
+		String opcao;
+		while (true) {
+			System.out.println("Opções: 'cadastrar' e 'listar'.");
+			System.out.print(" > ");
+			opcao = teclado.nextLine();
+			if (opcao == "cadastrar") {
+				Controlador.cadastrarUmAluno(teclado, conexao);
+			} else {
+				break;
+			}
+		}
+
+		teclado.close();
+		conexao.close();
+	}
+
+	private static void cadastrarUmAluno(Scanner teclado, Connection conexao) throws SQLException {
 		Aluno aluno = Controlador.defineAlunoPeloTeclado(teclado);
 
 		String sqlDeInsercao = "INSERT INTO aluno(id, cpf, matricula, nome, email, telefone) VALUES (?, ?, ?, ?, ?, ?)";
@@ -27,10 +45,8 @@ public class Controlador {
 		ps.setString(4, aluno.getNome());
 		ps.setString(5, aluno.getEmail());
 		ps.setString(6, aluno.getTelefone());
-		ps.executeUpdate();
 
-		teclado.close();
-		conexao.close();
+		ps.executeUpdate();
 	}
 
 	private static Aluno defineAlunoPeloTeclado(Scanner entrada) {
