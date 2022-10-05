@@ -1,7 +1,6 @@
 package atividade06;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +11,6 @@ import atividade06.modelos.Aluno;
 public class Controlador {
 
 	public static void main(String[] args) throws SQLException {
-		Connection conexao = DriverManager.getConnection(
-				"jdbc:postgresql://localhost/persistencia",
-				"postgres", "postgres");
-
 		Scanner teclado = new Scanner(System.in);
 
 		String opcao;
@@ -24,19 +19,20 @@ public class Controlador {
 			System.out.print(" > ");
 			opcao = teclado.nextLine();
 			if (opcao.equals("cadastrar")) {
-				Controlador.cadastrarUmAluno(teclado, conexao);
+				Controlador.cadastrarUmAluno(teclado);
 			} else if (opcao.equals("listar")) {
-				Controlador.listarAlunos(conexao);
+				Controlador.listarAlunos();
 			} else {
 				break;
 			}
 		}
 
 		teclado.close();
-		conexao.close();
 	}
 
-	private static void listarAlunos(Connection conexao) throws SQLException {
+	private static void listarAlunos() throws SQLException {
+		Connection conexao = FabricaDeConexoes.getConnection();
+
 		PreparedStatement ps = conexao.prepareStatement("SELECT * FROM aluno");
 		ResultSet rs = ps.executeQuery();
 
@@ -58,9 +54,13 @@ public class Controlador {
 			Aluno aluno = new Aluno(id, cpf, matricula, nome, email, telefone);
 			System.out.println(aluno.toString());
 		}
+
+		conexao.close();
 	}
 
-	private static void cadastrarUmAluno(Scanner scanner, Connection conexao) throws SQLException {
+	private static void cadastrarUmAluno(Scanner scanner) throws SQLException {
+		Connection conexao = FabricaDeConexoes.getConnection();
+
 		Aluno aluno = Controlador.defineAlunoPeloTeclado(scanner);
 
 		String sqlDeInsercao = "INSERT INTO aluno(id, cpf, matricula, nome, email, telefone) VALUES (?, ?, ?, ?, ?, ?)";
@@ -74,6 +74,8 @@ public class Controlador {
 		ps.setString(6, aluno.getTelefone());
 
 		ps.executeUpdate();
+
+		conexao.close();
 	}
 
 	private static Aluno defineAlunoPeloTeclado(Scanner entrada) {
