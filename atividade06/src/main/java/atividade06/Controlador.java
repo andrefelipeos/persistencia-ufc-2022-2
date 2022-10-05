@@ -3,6 +3,7 @@ package atividade06;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -22,8 +23,10 @@ public class Controlador {
 			System.out.println("Opções: 'cadastrar' e 'listar'.");
 			System.out.print(" > ");
 			opcao = teclado.nextLine();
-			if (opcao == "cadastrar") {
+			if (opcao.equals("cadastrar")) {
 				Controlador.cadastrarUmAluno(teclado, conexao);
+			} else if (opcao.equals("listar")) {
+				Controlador.listarAlunos(conexao);
 			} else {
 				break;
 			}
@@ -33,8 +36,32 @@ public class Controlador {
 		conexao.close();
 	}
 
-	private static void cadastrarUmAluno(Scanner teclado, Connection conexao) throws SQLException {
-		Aluno aluno = Controlador.defineAlunoPeloTeclado(teclado);
+	private static void listarAlunos(Connection conexao) throws SQLException {
+		PreparedStatement ps = conexao.prepareStatement("SELECT * FROM aluno");
+		ResultSet rs = ps.executeQuery();
+
+		int id;
+		String cpf;
+		int matricula;
+		String nome;
+		String email;
+		String telefone;
+
+		while (rs.next()) {
+			id = rs.getInt("id");
+			cpf = rs.getString("cpf");
+			matricula = rs.getInt("matricula");
+			nome = rs.getString("nome");
+			email = rs.getString("email");
+			telefone = rs.getString("telefone");
+
+			Aluno aluno = new Aluno(id, cpf, matricula, nome, email, telefone);
+			System.out.println(aluno.toString());
+		}
+	}
+
+	private static void cadastrarUmAluno(Scanner scanner, Connection conexao) throws SQLException {
+		Aluno aluno = Controlador.defineAlunoPeloTeclado(scanner);
 
 		String sqlDeInsercao = "INSERT INTO aluno(id, cpf, matricula, nome, email, telefone) VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = conexao.prepareStatement(sqlDeInsercao);
