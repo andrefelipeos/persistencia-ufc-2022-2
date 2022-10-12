@@ -11,4 +11,6 @@ public interface AlunoDAO {
 
 	public Aluno save(Aluno aluno) throws SQLException;
 
+	public boolean deleteByMatricula(int matricula) throws SQLException;
+
 }

@@ -58,5 +58,19 @@ public class AlunoDAOImpl implements AlunoDAO {
 		return alunos;
 	}
 
+	public boolean deleteByMatricula(int matricula) throws SQLException {
+		Connection conexao = ConnectionFactory.getConnection();
+
+		String sqlRemover = "DELETE FROM alunos WHERE matricula = ?;";
+		PreparedStatement ps = conexao.prepareStatement(sqlRemover);
+		ps.setInt(1, matricula);
+
+		if (ps.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
 
 }
