@@ -11,6 +11,30 @@ import atividade07.modelos.Aluno;
 
 public class AlunoDAOImpl implements AlunoDAO {
 
+	public Aluno save(Aluno aluno) throws SQLException {
+		Connection conexao = ConnectionFactory.getConnection();
+
+		if (aluno.getIdentificador() == null) {
+			String sqlInserir = "INSERT INTO alunos "
+					+ "(matricula, nome, cpf, email, telefone) "
+					+ "VALUES (?, ?, ?, ?, ?);";
+			PreparedStatement ps = conexao
+					.prepareStatement(sqlInserir, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, aluno.getMatricula());
+			ps.setString(2, aluno.getNome());
+			ps.setString(3, aluno.getCpf());
+			ps.setString(4, aluno.getEmail());
+			ps.setString(5, aluno.getTelefone());
+			ps.executeUpdate();
+			ResultSet chavesGeradas = ps.getGeneratedKeys();
+			if (chavesGeradas.next()) {
+				aluno.setIdentificador(chavesGeradas.getInt("identificador"));
+			}
+		}
+
+		return aluno;
+	}
+
 	public List<Aluno> findAll() throws SQLException {
 		Connection conexao = ConnectionFactory.getConnection();
 		PreparedStatement ps = conexao.prepareStatement("SELECT * FROM alunos;");
@@ -33,5 +57,6 @@ public class AlunoDAOImpl implements AlunoDAO {
 
 		return alunos;
 	}
+
 
 }

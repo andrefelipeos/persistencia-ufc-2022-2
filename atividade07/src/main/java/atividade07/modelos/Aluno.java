@@ -2,7 +2,7 @@ package atividade07.modelos;
 
 public class Aluno {
 
-	private int identificador;
+	private Integer identificador;
 	private String cpf;
 	private int matricula;
 	private String nome;
@@ -17,12 +17,32 @@ public class Aluno {
 		this.telefone = telefone;
 	}
 
-	public int getIdentificador() {
+	public Integer getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador(int identificador) {
+	public void setIdentificador(Integer identificador) {
 		this.identificador = identificador;
+	}
+
+	public int getMatricula() {
+		return matricula;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getTelefone() {
+		return telefone;
 	}
 
 	public String toString() {

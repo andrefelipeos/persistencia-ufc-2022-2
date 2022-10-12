@@ -9,4 +9,6 @@ public interface AlunoDAO {
 
 	public List<Aluno> findAll() throws SQLException;
 
+	public Aluno save(Aluno aluno) throws SQLException;
+
 }
