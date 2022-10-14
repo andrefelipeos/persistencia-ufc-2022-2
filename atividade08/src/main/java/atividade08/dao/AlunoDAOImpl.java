@@ -12,10 +12,8 @@ import atividade08.modelos.Aluno;
 public class AlunoDAOImpl implements AlunoDAO {
 
 	public Aluno save(Aluno aluno) {
-		Connection conexao = null;
 
-		try {
-			conexao = ConnectionFactory.getConnection();
+		try (Connection conexao = ConnectionFactory.getConnection()) {
 			if (aluno.getIdentificador() == null) {
 				String sqlInserir = "INSERT INTO alunos "
 						+ "(matricula, nome, cpf, email, telefone) "
@@ -51,16 +49,6 @@ public class AlunoDAOImpl implements AlunoDAO {
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Não foi possível acessar o banco de dados", e);
-		} finally {
-			if (conexao != null) {
-				try {
-					conexao.close();
-				} catch (SQLException e) {
-					String mensagem = "Um erro ocorreu ao tentar encerrar a conexão"
-							+ " com o banco de dados";
-					throw new DAOException(mensagem, e);
-				}
-			}
 		}
 
 		return aluno;
