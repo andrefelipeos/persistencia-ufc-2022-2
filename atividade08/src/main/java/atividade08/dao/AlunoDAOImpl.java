@@ -15,21 +15,7 @@ public class AlunoDAOImpl implements AlunoDAO {
 
 		try (Connection conexao = ConnectionFactory.getConnection()) {
 			if (aluno.getIdentificador() == null) {
-				String sqlInserir = "INSERT INTO alunos "
-						+ "(matricula, nome, cpf, email, telefone) "
-						+ "VALUES (?, ?, ?, ?, ?);";
-				PreparedStatement ps = conexao
-						.prepareStatement(sqlInserir, PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setInt(1, aluno.getMatricula());
-				ps.setString(2, aluno.getNome());
-				ps.setString(3, aluno.getCpf());
-				ps.setString(4, aluno.getEmail());
-				ps.setString(5, aluno.getTelefone());
-				ps.executeUpdate();
-				ResultSet chavesGeradas = ps.getGeneratedKeys();
-				if (chavesGeradas.next()) {
-					aluno.setIdentificador(chavesGeradas.getInt("identificador"));
-				}
+				cadastraAluno(aluno, conexao);
 			} else {
 				alteraAluno(aluno, conexao);
 			}
@@ -38,6 +24,24 @@ public class AlunoDAOImpl implements AlunoDAO {
 		}
 
 		return aluno;
+	}
+
+	private void cadastraAluno(Aluno aluno, Connection conexao) throws SQLException {
+		String sqlInserir = "INSERT INTO alunos "
+				+ "(matricula, nome, cpf, email, telefone) "
+				+ "VALUES (?, ?, ?, ?, ?);";
+		PreparedStatement ps = conexao
+				.prepareStatement(sqlInserir, PreparedStatement.RETURN_GENERATED_KEYS);
+		ps.setInt(1, aluno.getMatricula());
+		ps.setString(2, aluno.getNome());
+		ps.setString(3, aluno.getCpf());
+		ps.setString(4, aluno.getEmail());
+		ps.setString(5, aluno.getTelefone());
+		ps.executeUpdate();
+		ResultSet chavesGeradas = ps.getGeneratedKeys();
+		if (chavesGeradas.next()) {
+			aluno.setIdentificador(chavesGeradas.getInt("identificador"));
+		}
 	}
 
 	private void alteraAluno(Aluno aluno, Connection conexao) throws SQLException {
