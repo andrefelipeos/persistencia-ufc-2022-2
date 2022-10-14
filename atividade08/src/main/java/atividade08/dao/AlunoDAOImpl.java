@@ -31,27 +31,31 @@ public class AlunoDAOImpl implements AlunoDAO {
 					aluno.setIdentificador(chavesGeradas.getInt("identificador"));
 				}
 			} else {
-				String sqlAlterar = "UPDATE alunos SET "
-						+ "matricula = ?, "
-						+ "nome = ?, "
-						+ "cpf = ?, "
-						+ "email = ?, "
-						+ "telefone = ? "
-						+ "WHERE identificador = ?;";
-				PreparedStatement ps = conexao.prepareStatement(sqlAlterar);
-				ps.setInt(1, aluno.getMatricula());
-				ps.setString(2, aluno.getNome());
-				ps.setString(3, aluno.getCpf());
-				ps.setString(4, aluno.getEmail());
-				ps.setString(5, aluno.getTelefone());
-				ps.setInt(6, aluno.getIdentificador());
-				ps.executeUpdate();
+				alteraAluno(aluno, conexao);
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Não foi possível acessar o banco de dados", e);
 		}
 
 		return aluno;
+	}
+
+	private void alteraAluno(Aluno aluno, Connection conexao) throws SQLException {
+		String sqlAlterar = "UPDATE alunos SET "
+				+ "matricula = ?, "
+				+ "nome = ?, "
+				+ "cpf = ?, "
+				+ "email = ?, "
+				+ "telefone = ? "
+				+ "WHERE identificador = ?;";
+		PreparedStatement ps = conexao.prepareStatement(sqlAlterar);
+		ps.setInt(1, aluno.getMatricula());
+		ps.setString(2, aluno.getNome());
+		ps.setString(3, aluno.getCpf());
+		ps.setString(4, aluno.getEmail());
+		ps.setString(5, aluno.getTelefone());
+		ps.setInt(6, aluno.getIdentificador());
+		ps.executeUpdate();
 	}
 
 	public List<Aluno> findAll() {
