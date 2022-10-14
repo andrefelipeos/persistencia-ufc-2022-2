@@ -76,7 +76,9 @@ public class AlunoDAOImpl implements AlunoDAO {
 				try {
 					conexao.close();
 				} catch (SQLException e) {
-					throw new DAOException("Um erro ocorreu ao tentar encerrar a conexão com o banco de dados", e);
+					String mensagem = "Um erro ocorreu ao tentar encerrar a conexão"
+							+ " com o banco de dados";
+					throw new DAOException(mensagem, e);
 				}
 			}
 		}
