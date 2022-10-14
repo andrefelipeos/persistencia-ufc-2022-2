@@ -68,9 +68,8 @@ public class AlunoDAOImpl implements AlunoDAO {
 
 	public List<Aluno> findAll() {
 		List<Aluno> alunos = new ArrayList<Aluno>();
-		Connection conexao = null;
-		try {
-			conexao = ConnectionFactory.getConnection();
+
+		try (Connection conexao = ConnectionFactory.getConnection()) {
 			PreparedStatement ps = conexao.prepareStatement("SELECT * FROM alunos;");
 			ResultSet rs = ps.executeQuery();
 
@@ -86,16 +85,6 @@ public class AlunoDAOImpl implements AlunoDAO {
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Não foi possível acessar o banco de dados", e);
-		} finally {
-			if (conexao != null) {
-				try {
-					conexao.close();
-				} catch (SQLException e) {
-					String mensagem = "Um erro ocorreu ao tentar encerrar a conexão"
-							+ " com o banco de dados";
-					throw new DAOException(mensagem, e);
-				}
-			}
 		}
 
 		return alunos;
@@ -120,6 +109,5 @@ public class AlunoDAOImpl implements AlunoDAO {
 			return true;
 		}
 	}
-
 
 }
