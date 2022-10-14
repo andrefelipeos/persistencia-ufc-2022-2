@@ -7,7 +7,7 @@ import atividade08.modelos.Aluno;
 
 public interface AlunoDAO {
 
-	public List<Aluno> findAll() throws SQLException;
+	public List<Aluno> findAll();
 
 	public Aluno save(Aluno aluno) throws SQLException;
 

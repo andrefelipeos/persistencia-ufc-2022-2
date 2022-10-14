@@ -51,25 +51,35 @@ public class AlunoDAOImpl implements AlunoDAO {
 		return aluno;
 	}
 
-	public List<Aluno> findAll() throws SQLException {
-		Connection conexao = ConnectionFactory.getConnection();
-		PreparedStatement ps = conexao.prepareStatement("SELECT * FROM alunos;");
-		ResultSet rs = ps.executeQuery();
-
+	public List<Aluno> findAll() {
 		List<Aluno> alunos = new ArrayList<Aluno>();
+		Connection conexao = null;
+		try {
+			conexao = ConnectionFactory.getConnection();
+			PreparedStatement ps = conexao.prepareStatement("SELECT * FROM alunos;");
+			ResultSet rs = ps.executeQuery();
 
-		while (rs.next()) {
-			int matricula = rs.getInt("matricula");
-			String nome = rs.getString("nome");
-			String cpf = rs.getString("cpf");
-			String email = rs.getString("email");
-			String telefone = rs.getString("telefone");
+			while (rs.next()) {
+				int matricula = rs.getInt("matricula");
+				String nome = rs.getString("nome");
+				String cpf = rs.getString("cpf");
+				String email = rs.getString("email");
+				String telefone = rs.getString("telefone");
 
-			Aluno aluno = new Aluno(matricula, nome, cpf, email, telefone);
-			alunos.add(aluno);
+				Aluno aluno = new Aluno(matricula, nome, cpf, email, telefone);
+				alunos.add(aluno);
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Não foi possível acessar o banco de dados", e);
+		} finally {
+			if (conexao != null) {
+				try {
+					conexao.close();
+				} catch (SQLException e) {
+					throw new DAOException("Um erro ocorreu ao tentar encerrar a conexão com o banco de dados", e);
+				}
+			}
 		}
-
-		conexao.close();
 
 		return alunos;
 	}
