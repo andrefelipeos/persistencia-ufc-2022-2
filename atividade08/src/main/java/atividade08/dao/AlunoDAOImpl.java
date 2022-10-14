@@ -11,41 +11,56 @@ import atividade08.modelos.Aluno;
 
 public class AlunoDAOImpl implements AlunoDAO {
 
-	public Aluno save(Aluno aluno) throws SQLException {
-		Connection conexao = ConnectionFactory.getConnection();
+	public Aluno save(Aluno aluno) {
+		Connection conexao = null;
 
-		if (aluno.getIdentificador() == null) {
-			String sqlInserir = "INSERT INTO alunos "
-					+ "(matricula, nome, cpf, email, telefone) "
-					+ "VALUES (?, ?, ?, ?, ?);";
-			PreparedStatement ps = conexao
-					.prepareStatement(sqlInserir, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, aluno.getMatricula());
-			ps.setString(2, aluno.getNome());
-			ps.setString(3, aluno.getCpf());
-			ps.setString(4, aluno.getEmail());
-			ps.setString(5, aluno.getTelefone());
-			ps.executeUpdate();
-			ResultSet chavesGeradas = ps.getGeneratedKeys();
-			if (chavesGeradas.next()) {
-				aluno.setIdentificador(chavesGeradas.getInt("identificador"));
+		try {
+			conexao = ConnectionFactory.getConnection();
+			if (aluno.getIdentificador() == null) {
+				String sqlInserir = "INSERT INTO alunos "
+						+ "(matricula, nome, cpf, email, telefone) "
+						+ "VALUES (?, ?, ?, ?, ?);";
+				PreparedStatement ps = conexao
+						.prepareStatement(sqlInserir, PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, aluno.getMatricula());
+				ps.setString(2, aluno.getNome());
+				ps.setString(3, aluno.getCpf());
+				ps.setString(4, aluno.getEmail());
+				ps.setString(5, aluno.getTelefone());
+				ps.executeUpdate();
+				ResultSet chavesGeradas = ps.getGeneratedKeys();
+				if (chavesGeradas.next()) {
+					aluno.setIdentificador(chavesGeradas.getInt("identificador"));
+				}
+			} else {
+				String sqlAlterar = "UPDATE alunos SET "
+						+ "matricula = ?, "
+						+ "nome = ?, "
+						+ "cpf = ?, "
+						+ "email = ?, "
+						+ "telefone = ? "
+						+ "WHERE identificador = ?;";
+				PreparedStatement ps = conexao.prepareStatement(sqlAlterar);
+				ps.setInt(1, aluno.getMatricula());
+				ps.setString(2, aluno.getNome());
+				ps.setString(3, aluno.getCpf());
+				ps.setString(4, aluno.getEmail());
+				ps.setString(5, aluno.getTelefone());
+				ps.setInt(6, aluno.getIdentificador());
+				ps.executeUpdate();
 			}
-		} else {
-			String sqlAlterar = "UPDATE alunos SET "
-					+ "matricula = ?, "
-					+ "nome = ?, "
-					+ "cpf = ?, "
-					+ "email = ?, "
-					+ "telefone = ? "
-					+ "WHERE identificador = ?;";
-			PreparedStatement ps = conexao.prepareStatement(sqlAlterar);
-			ps.setInt(1, aluno.getMatricula());
-			ps.setString(2, aluno.getNome());
-			ps.setString(3, aluno.getCpf());
-			ps.setString(4, aluno.getEmail());
-			ps.setString(5, aluno.getTelefone());
-			ps.setInt(6, aluno.getIdentificador());
-			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new DAOException("Não foi possível acessar o banco de dados", e);
+		} finally {
+			if (conexao != null) {
+				try {
+					conexao.close();
+				} catch (SQLException e) {
+					String mensagem = "Um erro ocorreu ao tentar encerrar a conexão"
+							+ " com o banco de dados";
+					throw new DAOException(mensagem, e);
+				}
+			}
 		}
 
 		return aluno;
