@@ -1,6 +1,5 @@
 package atividade08.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import atividade08.modelos.Aluno;
@@ -11,6 +10,6 @@ public interface AlunoDAO {
 
 	public Aluno save(Aluno aluno);
 
-	public boolean deleteByMatricula(int matricula) throws SQLException;
+	public boolean deleteByMatricula(int matricula);
 
 }

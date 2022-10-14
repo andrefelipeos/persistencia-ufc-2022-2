@@ -31,7 +31,10 @@ public class Principal {
 				alunoDAO.save(aluno);
 			} else if (opcao.equals("apagar")) {
 				Integer matricula = Integer.valueOf(teclado.nextLine());
-				alunoDAO.deleteByMatricula(matricula);
+				if (alunoDAO.deleteByMatricula(matricula)) {
+					System.out.println("O registro do aluno com matrícula"
+							+ " " + matricula + " foi apagado.");
+				}
 			} else if (opcao.equals("listar")) {
 				List<Aluno> listaDeAlunos = alunoDAO.findAll();
 				for (Aluno aluno : listaDeAlunos) {

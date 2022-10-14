@@ -101,18 +101,33 @@ public class AlunoDAOImpl implements AlunoDAO {
 		return alunos;
 	}
 
-	public boolean deleteByMatricula(int matricula) throws SQLException {
-		Connection conexao = ConnectionFactory.getConnection();
+	public boolean deleteByMatricula(int matricula) {
+		Connection conexao = null;
+		int linhasAfetadas = 0;
 
-		String sqlRemover = "DELETE FROM alunos WHERE matricula = ?;";
-		PreparedStatement ps = conexao.prepareStatement(sqlRemover);
-		ps.setInt(1, matricula);
-
-		if (ps.executeUpdate() > 0) {
-			return true;
+		try {
+			conexao = ConnectionFactory.getConnection();
+			String sqlRemover = "DELETE FROM alunos WHERE matricula = ?;";
+			PreparedStatement ps = conexao.prepareStatement(sqlRemover);
+			ps.setInt(1, matricula);
+			
+			linhasAfetadas = ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new DAOException("Não foi possível acessar o banco de dados", e);
+		} finally {
+			if (conexao != null) {
+				try {
+					conexao.close();
+				} catch (SQLException e) {
+					String mensagem = "Um erro ocorreu ao tentar encerrar a conexão"
+							+ " com o banco de dados";
+					throw new DAOException(mensagem, e);
+				}
+			}
 		}
 
-		return false;
+		if (linhasAfetadas == 0) return false;
+		else return true;
 	}
 
 
