@@ -2,7 +2,7 @@ package atividade08.modelos;
 
 public class Aluno {
 
-	private Integer identificador;
+	private Integer identificador = null;
 	private String cpf;
 	private int matricula;
 	private String nome;
@@ -46,7 +46,10 @@ public class Aluno {
 	}
 
 	public String toString() {
+		String id = this.identificador == null ? "-" : String.valueOf(this.identificador);
 		StringBuilder sb = new StringBuilder();
+		sb.append(id);
+		sb.append(" : ");
 		sb.append(this.matricula);
 		sb.append(" : ");
 		sb.append(this.nome);

@@ -70,6 +70,7 @@ public class AlunoDAOImpl implements AlunoDAO {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
+				int identificador = rs.getInt("identificador");
 				int matricula = rs.getInt("matricula");
 				String nome = rs.getString("nome");
 				String cpf = rs.getString("cpf");
@@ -77,6 +78,7 @@ public class AlunoDAOImpl implements AlunoDAO {
 				String telefone = rs.getString("telefone");
 
 				Aluno aluno = new Aluno(matricula, nome, cpf, email, telefone);
+				aluno.setIdentificador(identificador);
 				alunos.add(aluno);
 			}
 		} catch (SQLException e) {
