@@ -30,6 +30,7 @@ public class Principal {
 				aluno.setIdentificador(identificador);
 				alunoDAO.save(aluno);
 			} else if (opcao.equals("apagar")) {
+				System.out.print("Matrícula: ");
 				Integer matricula = Integer.valueOf(teclado.nextLine());
 				if (alunoDAO.deleteByMatricula(matricula)) {
 					System.out.println("O registro do aluno com matrícula"
