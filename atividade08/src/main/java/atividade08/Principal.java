@@ -4,16 +4,26 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import atividade08.dao.AlunoDAO;
-import atividade08.dao.AlunoDAOImpl;
 import atividade08.modelos.Aluno;
 
-public class Principal {
+@SpringBootApplication
+public class Principal implements CommandLineRunner {
+
+	@Autowired
+	private AlunoDAO alunoDAO;
 
 	public static void main(String[] args) throws SQLException {
-		Scanner teclado = new Scanner(System.in);
+		SpringApplication.run(Principal.class, args);
+	}
 
-		AlunoDAO alunoDAO = new AlunoDAOImpl();
+	public void run(String... args) throws Exception {
+		Scanner teclado = new Scanner(System.in);
 
 		String opcao;
 		while (true) {

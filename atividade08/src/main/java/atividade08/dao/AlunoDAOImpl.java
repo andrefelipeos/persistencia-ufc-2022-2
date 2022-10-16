@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import atividade08.modelos.Aluno;
 
+@Repository
 public class AlunoDAOImpl implements AlunoDAO {
 
 	public Aluno save(Aluno aluno) {
