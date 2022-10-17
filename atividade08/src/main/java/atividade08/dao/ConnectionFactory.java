@@ -12,9 +12,9 @@ public class ConnectionFactory {
 	public static Connection getConnection() throws SQLException {
 		Properties props = AppConfig.PROPS;
 		return DriverManager.getConnection(
-				props.getProperty("database"),
-				props.getProperty("username"),
-				props.getProperty("password"));
+				props.getProperty("spring.datasource.url"),
+				props.getProperty("spring.datasource.username"),
+				props.getProperty("spring.datasource.password"));
 	}
 
 }
