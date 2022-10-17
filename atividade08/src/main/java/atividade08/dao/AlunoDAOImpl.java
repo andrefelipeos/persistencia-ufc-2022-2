@@ -4,15 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import atividade08.modelos.Aluno;
 
 @Repository
 public class AlunoDAOImpl implements AlunoDAO {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	public Aluno save(Aluno aluno) {
 
@@ -66,29 +70,20 @@ public class AlunoDAOImpl implements AlunoDAO {
 	}
 
 	public List<Aluno> findAll() {
-		List<Aluno> alunos = new ArrayList<Aluno>();
+		String consultaSql = "SELECT * FROM alunos;";
+		return jdbcTemplate.query(consultaSql, (rs, linha) -> {
+			int identificador = rs.getInt("identificador");
+			int matricula = rs.getInt("matricula");
+			String nome = rs.getString("nome");
+			String cpf = rs.getString("cpf");
+			String email = rs.getString("email");
+			String telefone = rs.getString("telefone");
 
-		try (Connection conexao = ConnectionFactory.getConnection()) {
-			PreparedStatement ps = conexao.prepareStatement("SELECT * FROM alunos;");
-			ResultSet rs = ps.executeQuery();
+			Aluno aluno = new Aluno(matricula, nome, cpf, email, telefone);
+			aluno.setIdentificador(identificador);
 
-			while (rs.next()) {
-				int identificador = rs.getInt("identificador");
-				int matricula = rs.getInt("matricula");
-				String nome = rs.getString("nome");
-				String cpf = rs.getString("cpf");
-				String email = rs.getString("email");
-				String telefone = rs.getString("telefone");
-
-				Aluno aluno = new Aluno(matricula, nome, cpf, email, telefone);
-				aluno.setIdentificador(identificador);
-				alunos.add(aluno);
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Não foi possível acessar o banco de dados", e);
-		}
-
-		return alunos;
+			return aluno;
+		});
 	}
 
 	public boolean deleteByMatricula(int matricula) {
