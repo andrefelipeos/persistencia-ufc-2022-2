@@ -20,20 +20,34 @@ public class AlunoDAOImpl implements AlunoDAO {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	public Aluno save(Aluno aluno) {
+		MapSqlParameterSource parametros = new MapSqlParameterSource();
+		parametros.addValue("matricula", aluno.getMatricula());
+		parametros.addValue("nome", aluno.getNome());
+		parametros.addValue("cpf", aluno.getCpf());
+		parametros.addValue("email", aluno.getEmail());
+		parametros.addValue("telefone", aluno.getTelefone());
 
-		try (Connection conexao = ConnectionFactory.getConnection()) {
-			if (aluno.getIdentificador() == null) {
-				cadastraAluno(aluno, conexao);
-			} else {
-				alteraAluno(aluno, conexao);
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Não foi possível acessar o banco de dados", e);
+		if (aluno.getIdentificador() == null) {
+			String sqlInserir = "INSERT INTO alunos "
+					+ "(matricula, nome, cpf, email, telefone) "
+					+ "VALUES (:matricula, :nome, :cpf, :email, :telefone);";
+			jdbcTemplate.update(sqlInserir, parametros);
+		} else {
+			parametros.addValue("identificador", aluno.getIdentificador());
+			String sqlAlterar = "UPDATE alunos SET "
+					+ "matricula = :matricula, "
+					+ "nome = :nome, "
+					+ "cpf = :cpf, "
+					+ "email = :email, "
+					+ "telefone = :telefone "
+					+ "WHERE identificador = :identificador;";
+			jdbcTemplate.update(sqlAlterar, parametros);
 		}
 
 		return aluno;
 	}
 
+	@SuppressWarnings("unused")
 	private void cadastraAluno(Aluno aluno, Connection conexao) throws SQLException {
 		String sqlInserir = "INSERT INTO alunos "
 				+ "(matricula, nome, cpf, email, telefone) "
@@ -52,6 +66,7 @@ public class AlunoDAOImpl implements AlunoDAO {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void alteraAluno(Aluno aluno, Connection conexao) throws SQLException {
 		String sqlAlterar = "UPDATE alunos SET "
 				+ "matricula = ?, "
