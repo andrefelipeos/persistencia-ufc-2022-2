@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import atividade08.modelos.Aluno;
@@ -16,7 +17,7 @@ import atividade08.modelos.Aluno;
 public class AlunoDAOImpl implements AlunoDAO {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	public Aluno save(Aluno aluno) {
 
@@ -89,21 +90,12 @@ public class AlunoDAOImpl implements AlunoDAO {
 	public boolean deleteByMatricula(int matricula) {
 		int linhasAfetadas = 0;
 
-		try (Connection conexao = ConnectionFactory.getConnection()) {
-			String sqlRemover = "DELETE FROM alunos WHERE matricula = ?;";
-			PreparedStatement ps = conexao.prepareStatement(sqlRemover);
-			ps.setInt(1, matricula);
-			
-			linhasAfetadas = ps.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Não foi possível acessar o banco de dados", e);
-		}
+		String sqlRemover = "DELETE FROM alunos WHERE matricula = :matricula;";
+		MapSqlParameterSource parametros = new MapSqlParameterSource();
+		parametros.addValue("matricula", matricula);
+		linhasAfetadas = jdbcTemplate.update(sqlRemover, parametros);
 
-		if (linhasAfetadas == 0) {
-			return false;
-		} else {
-			return true;
-		}
+		return !(linhasAfetadas == 0);
 	}
 
 }
