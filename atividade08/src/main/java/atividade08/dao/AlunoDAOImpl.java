@@ -47,44 +47,6 @@ public class AlunoDAOImpl implements AlunoDAO {
 		return aluno;
 	}
 
-	@SuppressWarnings("unused")
-	private void cadastraAluno(Aluno aluno, Connection conexao) throws SQLException {
-		String sqlInserir = "INSERT INTO alunos "
-				+ "(matricula, nome, cpf, email, telefone) "
-				+ "VALUES (?, ?, ?, ?, ?);";
-		PreparedStatement ps = conexao
-				.prepareStatement(sqlInserir, PreparedStatement.RETURN_GENERATED_KEYS);
-		ps.setInt(1, aluno.getMatricula());
-		ps.setString(2, aluno.getNome());
-		ps.setString(3, aluno.getCpf());
-		ps.setString(4, aluno.getEmail());
-		ps.setString(5, aluno.getTelefone());
-		ps.executeUpdate();
-		ResultSet chavesGeradas = ps.getGeneratedKeys();
-		if (chavesGeradas.next()) {
-			aluno.setIdentificador(chavesGeradas.getInt("identificador"));
-		}
-	}
-
-	@SuppressWarnings("unused")
-	private void alteraAluno(Aluno aluno, Connection conexao) throws SQLException {
-		String sqlAlterar = "UPDATE alunos SET "
-				+ "matricula = ?, "
-				+ "nome = ?, "
-				+ "cpf = ?, "
-				+ "email = ?, "
-				+ "telefone = ? "
-				+ "WHERE identificador = ?;";
-		PreparedStatement ps = conexao.prepareStatement(sqlAlterar);
-		ps.setInt(1, aluno.getMatricula());
-		ps.setString(2, aluno.getNome());
-		ps.setString(3, aluno.getCpf());
-		ps.setString(4, aluno.getEmail());
-		ps.setString(5, aluno.getTelefone());
-		ps.setInt(6, aluno.getIdentificador());
-		ps.executeUpdate();
-	}
-
 	public List<Aluno> findAll() {
 		String consultaSql = "SELECT * FROM alunos;";
 		return jdbcTemplate.query(consultaSql, (rs, linha) -> {
