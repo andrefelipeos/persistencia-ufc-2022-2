@@ -10,6 +10,11 @@
       <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql:persistencia" />
       <property name="jakarta.persistence.jdbc.user" value="postgres" />
       <property name="jakarta.persistence.jdbc.password" value="postgres" />
+
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+      <property name="hibernate.show_sql" value="true" />
+      <property name="hibernate.format_sql" value="true" />
+      <property name="hibernate.hbm2ddl.auto" value="create-drop" />
     </properties>
   </persistence-unit>
 </persistence>
