@@ -18,6 +18,8 @@ public class Filme {
 	private String titulo;
 	private Year anoDeLancamento;
 
+	public Filme() { }
+
 	public Filme(String titulo, int anoDeLancamento) {
 		this.titulo = titulo;
 		this.anoDeLancamento = Year.of(anoDeLancamento);
