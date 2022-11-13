@@ -30,4 +30,12 @@ public class Filme {
 		return titulo + " (" + anoDeLancamento.toString() + ")";
 	}
 
+	public void setTitulo(String novoTitulo) {
+		this.titulo = novoTitulo;
+	}
+
+	public void setAnoDeLancamento(int novoAnoDeLacamento) {
+		this.anoDeLancamento = Year.of(novoAnoDeLacamento);
+	}
+
 }
