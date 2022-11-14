@@ -34,8 +34,8 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public List<String> findNamesOfAllActorsIn(Filme filme) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpqlQuery = "SELECT ator.nome FROM Filme filme JOIN filme.atores ator WHERE filme.identificador = " + filme.getIdentificador();
+		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
 	}
 
 	@Override
