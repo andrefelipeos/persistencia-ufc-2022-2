@@ -1,6 +1,7 @@
 package trabalho02.main;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Scanner;
 
 import trabalho02.dao.AtorDao;
@@ -21,6 +22,8 @@ public class Main {
 		do {
 			exit = menu();
 		} while (!exit);
+
+		System.out.println(filmeDao.findTotalNumberOfRegisteredMovies());
 	}
 
 	private static boolean menu() {
@@ -37,6 +40,9 @@ public class Main {
 		System.out.println("9 - remover-ator");
 		System.out.println("10 - modificar-ator");
 		System.out.println("11 - associar-entidades");
+		System.out.println("12 - filmes-por-ano");
+		System.out.println("13 - atores-do-filme");
+		System.out.println("14 - filme-do-ator");
 		System.out.print(" > ");
 
 		String comando = teclado.nextLine();
@@ -65,6 +71,12 @@ public class Main {
 			modificarAtor();
 		} else if (comando.equals("11") || comando.equals("associar-entidades")) {
 			associarEntidades();
+		} else if (comando.equals("12") || comando.equals("filmes-por-ano")) {
+			filtrarFilmesPorAno();
+		} else if (comando.equals("13") || comando.equals("atores-do-filme")) {
+			listarAtoresDeUmFilme();
+		} else if (comando.equals("14") || comando.equals("filmes-do-ator")) {
+			listarFilmesDeUmAtor();
 		}
 
 		return false;
@@ -104,12 +116,30 @@ public class Main {
 		filmeDao.save(filme);
 	}
 
+	private static void filtrarFilmesPorAno() {
+		System.out.print("Ano: ");
+		String ano = teclado.nextLine();
+		filmeDao.findTitlesOfAllMoviesReleasedIn(Year.of(Integer.parseInt(ano))).forEach(System.out::println);
+	}
+
 	private static void listarAtores() {
 		atorDao.findAll().forEach(System.out::println);
 	}
 
+	private static void listarAtoresDeUmFilme() {
+		System.out.println("Identificador do filme: ");
+		filmeDao.findNamesOfAllActorsIn(filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine())))
+				.forEach(System.out::println);
+	}
+
 	private static void listarFilmes() {
 		filmeDao.findAll().forEach(System.out::println);
+	}
+
+	private static void listarFilmesDeUmAtor() {
+		System.out.println("Identificador do ator: ");
+		atorDao.findTitlesOfAllMoviesWith(atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine())))
+				.forEach(System.out::println);
 	}
 
 	private static void modificarAtor() {
