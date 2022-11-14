@@ -17,7 +17,7 @@ public class Filme {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idenficador;
+	private Integer identificador;
 	private String titulo;
 	private Year anoDeLancamento;
 
@@ -47,6 +47,10 @@ public class Filme {
 	public void adicionarParticipacaoDo(Ator ator) {
 		atores.add(ator);
 		ator.adicionarParticipacaoNo(this);
+	}
+
+	public Integer getIdentificador() {
+		return this.identificador;
 	}
 
 }
