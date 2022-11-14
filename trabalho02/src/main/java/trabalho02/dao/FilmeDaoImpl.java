@@ -1,5 +1,6 @@
 package trabalho02.dao;
 
+import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
@@ -29,6 +30,30 @@ public class FilmeDaoImpl implements FilmeDao {
 	@Override
 	public Filme findByIdentifier(int identifier) {
 		return entityManager.find(Filme.class, identifier);
+	}
+
+	@Override
+	public List<String> findNamesOfAllActorsIn(Filme filme) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> findTitlesOfAllMoviesContaining(String substring) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> findTitlesOfAllMoviesReleasedIn(Year year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int findTotalNumberOfRegisteredMovies() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override

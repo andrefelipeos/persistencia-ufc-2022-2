@@ -1,5 +1,6 @@
 package trabalho02.dao;
 
+import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
@@ -29,6 +30,18 @@ public class AtorDaoImpl implements AtorDao {
 	@Override
 	public Ator findByIdentifier(int identifier) {
 		return entityManager.find(Ator.class, identifier);
+	}
+
+	@Override
+	public List<String> findNamesOfAllActorsBornIn(Year year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> findTitlesOfAllMoviesWith(Ator ator) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
