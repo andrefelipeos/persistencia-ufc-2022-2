@@ -18,6 +18,8 @@ public class Ator {
 	private String nome;
 	private LocalDate dataDeNascimento;
 
+	public Ator() { }
+
 	public Ator(String nome, LocalDate dataDeNascimento) {
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
