@@ -25,6 +25,14 @@ public class Ator {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
+		this.dataDeNascimento = dataDeNascimento;
+	}
+
 	@Override
 	public String toString() {
 		return nome + ", nascido em " + dataDeNascimento.toString();
