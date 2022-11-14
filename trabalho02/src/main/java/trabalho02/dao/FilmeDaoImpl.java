@@ -46,8 +46,8 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public List<String> findTitlesOfAllMoviesReleasedIn(Year year) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.anoDeLancamento = " + year.toString();
+		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
 	}
 
 	@Override
