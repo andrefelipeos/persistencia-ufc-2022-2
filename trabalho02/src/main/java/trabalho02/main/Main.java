@@ -1,15 +1,20 @@
 package trabalho02.main;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
+import trabalho02.dao.AtorDao;
+import trabalho02.dao.AtorDaoImpl;
 import trabalho02.dao.FilmeDao;
 import trabalho02.dao.FilmeDaoImpl;
+import trabalho02.modelos.Ator;
 import trabalho02.modelos.Filme;
 
 public class Main {
 
 	private static Scanner teclado = new Scanner(System.in);
 	private static FilmeDao filmeDao = new FilmeDaoImpl();
+	private static AtorDao atorDao = new AtorDaoImpl();
 
 	public static void main(String[] args) {
 		boolean exit;
@@ -26,6 +31,11 @@ public class Main {
 		System.out.println("3 - mostrar-filme");
 		System.out.println("4 - remover-filme");
 		System.out.println("5 - modificar-filme");
+		System.out.println("6 - listar-atores");
+		System.out.println("7 - adicionar-ator");
+		System.out.println("8 - mostrar-ator");
+		System.out.println("9 - remover-ator");
+		System.out.println("10 - modificar-ator");
 		System.out.print(" > ");
 
 		String comando = teclado.nextLine();
@@ -42,9 +52,31 @@ public class Main {
 			removerFilme();
 		} else if (comando.equals("5") || comando.equals("modificar-filme")) {
 			modificarFilme();
+		} else if (comando.equals("6") || comando.equals("listar-atores")) {
+			listarAtores();
+		} else if (comando.equals("7") || comando.equals("adicionar-ator")) {
+			adicionarAtor();
+		} else if (comando.equals("8") || comando.equals("mostrar-ator")) {
+			mostrarAtor();
+		} else if (comando.equals("9") || comando.equals("remover-ator")) {
+			removerAtor();
+		} else if (comando.equals("10") || comando.equals("modificar-ator")) {
+			modificarAtor();
 		}
 
 		return false;
+	}
+
+	private static void adicionarAtor() {
+		String nomeDoAtor;
+		String dataDeNascimento;
+
+		System.out.print("Nome do ator: ");
+		nomeDoAtor = teclado.nextLine();
+		System.out.print("Data do nascimento do ator: ");
+		dataDeNascimento = teclado.nextLine();
+
+		atorDao.save(new Ator(nomeDoAtor, LocalDate.parse(dataDeNascimento)));
 	}
 
 	private static void adicionarFilme() {
@@ -59,8 +91,24 @@ public class Main {
 		filmeDao.save(new Filme(tituloDoFilme, Integer.parseInt(anoDoLancamento)));
 	}
 
+	private static void listarAtores() {
+		atorDao.findAll().forEach(System.out::println);
+	}
+
 	private static void listarFilmes() {
 		filmeDao.findAll().forEach(System.out::println);
+	}
+
+	private static void modificarAtor() {
+		System.out.println("Identificador do ator: ");
+		Ator ator = atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
+
+		System.out.print("Novo nome do ator: ");
+		ator.setNome(teclado.nextLine());
+		System.out.print("Nova data de nascimento do ator: ");
+		ator.setDataDeNascimento(LocalDate.parse(teclado.nextLine()));
+
+		atorDao.save(ator);
 	}
 
 	private static void modificarFilme() {
@@ -75,9 +123,19 @@ public class Main {
 		filmeDao.save(filme);
 	}
 
+	private static void mostrarAtor() {
+		System.out.println("Identificador do ator: ");
+		System.out.println(atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine())));
+	}
+
 	private static void mostrarFilme() {
 		System.out.println("Identificador do filme: ");
 		System.out.println(filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine())));
+	}
+
+	private static void removerAtor() {
+		System.out.println("Identificador do ator: ");
+		atorDao.deleteByIdentifier(Integer.parseInt(teclado.nextLine()));
 	}
 
 	private static void removerFilme() {
