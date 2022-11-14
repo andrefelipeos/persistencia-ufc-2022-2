@@ -36,6 +36,7 @@ public class Main {
 		System.out.println("8 - mostrar-ator");
 		System.out.println("9 - remover-ator");
 		System.out.println("10 - modificar-ator");
+		System.out.println("11 - associar-entidades");
 		System.out.print(" > ");
 
 		String comando = teclado.nextLine();
@@ -62,6 +63,8 @@ public class Main {
 			removerAtor();
 		} else if (comando.equals("10") || comando.equals("modificar-ator")) {
 			modificarAtor();
+		} else if (comando.equals("11") || comando.equals("associar-entidades")) {
+			associarEntidades();
 		}
 
 		return false;
@@ -89,6 +92,16 @@ public class Main {
 		anoDoLancamento = teclado.nextLine();
 
 		filmeDao.save(new Filme(tituloDoFilme, Integer.parseInt(anoDoLancamento)));
+	}
+
+	private static void associarEntidades() {
+		System.out.println("Identificador do filme: ");
+		Filme filme = filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
+		System.out.println("Identificador do ator: ");
+		Ator ator = atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
+
+		filme.adicionarParticipacaoDo(ator);
+		filmeDao.save(filme);
 	}
 
 	private static void listarAtores() {

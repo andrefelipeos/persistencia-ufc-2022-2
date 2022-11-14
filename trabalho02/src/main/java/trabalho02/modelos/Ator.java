@@ -44,4 +44,8 @@ public class Ator {
 		return nome + ", nascido em " + dataDeNascimento.toString();
 	}
 
+	public void adicionarParticipacaoNo(Filme filme) {
+		filmes.add(filme);
+	}
+
 }

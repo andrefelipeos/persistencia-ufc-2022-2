@@ -44,4 +44,9 @@ public class Filme {
 		return titulo + " (" + anoDeLancamento.toString() + ")";
 	}
 
+	public void adicionarParticipacaoDo(Ator ator) {
+		atores.add(ator);
+		ator.adicionarParticipacaoNo(this);
+	}
+
 }
