@@ -19,7 +19,7 @@ public interface FilmeDao {
 
 	List<String> findTitlesOfAllMoviesContaining(String substring);
 
-	int findTotalNumberOfRegisteredMovies();
+	long findTotalNumberOfRegisteredMovies();
 
 	Filme save(Filme filme);
 

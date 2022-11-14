@@ -51,9 +51,8 @@ public class FilmeDaoImpl implements FilmeDao {
 	}
 
 	@Override
-	public int findTotalNumberOfRegisteredMovies() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long findTotalNumberOfRegisteredMovies() {
+		return entityManager.createQuery("SELECT COUNT(filme) FROM Filme filme", Long.class).getSingleResult();
 	}
 
 	@Override
