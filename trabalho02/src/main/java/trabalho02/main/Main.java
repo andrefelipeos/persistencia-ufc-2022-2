@@ -1,6 +1,7 @@
 package trabalho02.main;
 
 import java.time.LocalDate;
+import java.time.MonthDay;
 import java.time.Year;
 import java.util.Scanner;
 
@@ -24,6 +25,8 @@ public class Main {
 		} while (!exit);
 
 		System.out.println(filmeDao.findTotalNumberOfRegisteredMovies());
+		Year year = Year.of(1997);
+		System.out.println(year.atMonthDay(MonthDay.of(1, 1)));
 	}
 
 	private static boolean menu() {
@@ -43,6 +46,8 @@ public class Main {
 		System.out.println("12 - filmes-por-ano");
 		System.out.println("13 - atores-do-filme");
 		System.out.println("14 - filme-do-ator");
+		System.out.println("15 - filmes-por-substring");
+		System.out.println("16 - ator-por-ano-nascimento");
 		System.out.print(" > ");
 
 		String comando = teclado.nextLine();
@@ -77,6 +82,10 @@ public class Main {
 			listarAtoresDeUmFilme();
 		} else if (comando.equals("14") || comando.equals("filmes-do-ator")) {
 			listarFilmesDeUmAtor();
+		} else if (comando.equals("15") || comando.equals("filmes-por-substring")) {
+			listarFilmesPorSubstring();
+		} else if (comando.equals("16") || comando.equals("ator-por-ano-nascimento")) {
+			listarAtorPorAnoDeNascimento();
 		}
 
 		return false;
@@ -132,6 +141,11 @@ public class Main {
 				.forEach(System.out::println);
 	}
 
+	private static void listarAtorPorAnoDeNascimento() {
+		System.out.println("Ano: ");
+		atorDao.findNamesOfAllActorsBornIn(Year.of(Integer.parseInt(teclado.nextLine()))).forEach(System.out::println);
+	}
+
 	private static void listarFilmes() {
 		filmeDao.findAll().forEach(System.out::println);
 	}
@@ -140,6 +154,11 @@ public class Main {
 		System.out.println("Identificador do ator: ");
 		atorDao.findTitlesOfAllMoviesWith(atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine())))
 				.forEach(System.out::println);
+	}
+
+	public static void listarFilmesPorSubstring() {
+		System.out.println("Termo de busca: ");
+		filmeDao.findTitlesOfAllMoviesContaining(teclado.nextLine()).forEach(System.out::println);
 	}
 
 	private static void modificarAtor() {
