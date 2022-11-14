@@ -48,4 +48,8 @@ public class Ator {
 		filmes.add(filme);
 	}
 
+	public Integer getIdentificador() {
+		return this.identificador;
+	}
+
 }
