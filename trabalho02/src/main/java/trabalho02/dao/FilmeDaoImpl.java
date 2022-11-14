@@ -40,8 +40,8 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public List<String> findTitlesOfAllMoviesContaining(String substring) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.titulo LIKE '%" + substring + "%'";
+		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
 	}
 
 	@Override
