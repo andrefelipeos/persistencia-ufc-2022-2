@@ -40,8 +40,8 @@ public class AtorDaoImpl implements AtorDao {
 
 	@Override
 	public List<String> findTitlesOfAllMoviesWith(Ator ator) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpqlQuery = "SELECT filme.titulo FROM Ator ator JOIN ator.filmes filme WHERE ator.identificador = " + ator.getIdentificador();
+		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
 	}
 
 	@Override
