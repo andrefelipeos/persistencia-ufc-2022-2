@@ -1,11 +1,14 @@
 package trabalho02.modelos;
 
 import java.time.Year;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +20,9 @@ public class Filme {
 	private Integer idenficador;
 	private String titulo;
 	private Year anoDeLancamento;
+
+	@ManyToMany
+	Set<Ator> atores = new HashSet<Ator>();
 
 	public Filme() { }
 
