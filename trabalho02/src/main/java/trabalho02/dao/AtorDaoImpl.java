@@ -25,7 +25,7 @@ public class AtorDaoImpl implements AtorDao {
 
 	@Override
 	public List<Ator> findAll() {
-		return entityManager.createQuery("SELECT ator FROM Ator ator", Ator.class).getResultList();
+		return entityManager.createNamedQuery("Ator.buscaTodos", Ator.class).getResultList();
 	}
 
 	@Override
