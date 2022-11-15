@@ -35,15 +35,17 @@ public class AtorDaoImpl implements AtorDao {
 
 	@Override
 	public List<String> findNamesOfAllActorsBornIn(Year year) {
-		String jpqlQuery = "SELECT ator.nome FROM Ator ator WHERE ator.dataDeNascimento >= '" + year.atMonthDay(MonthDay.of(1, 1))
-			+ "' AND ator.dataDeNascimento <= '" + year.atMonthDay(MonthDay.of(12, 31)) + "'";
-		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
+		String jpqlQuery = "SELECT ator.nome FROM Ator ator WHERE ator.dataDeNascimento >= :primeiroDia AND ator.dataDeNascimento <= :ultimoDia";
+		return entityManager.createQuery(jpqlQuery, String.class)
+				.setParameter("primeiroDia", year.atMonthDay(MonthDay.of(1, 1)))
+				.setParameter("ultimoDia", year.atMonthDay(MonthDay.of(12, 31)))
+				.getResultList();
 	}
 
 	@Override
 	public List<String> findTitlesOfAllMoviesWith(Ator ator) {
-		String jpqlQuery = "SELECT filme.titulo FROM Ator ator JOIN ator.filmes filme WHERE ator.identificador = " + ator.getIdentificador();
-		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
+		String jpqlQuery = "SELECT filme.titulo FROM Ator ator JOIN ator.filmes filme WHERE ator.identificador = :identificador";
+		return entityManager.createQuery(jpqlQuery, String.class).setParameter("identificador", ator.getIdentificador()) .getResultList();
 	}
 
 	@Override
