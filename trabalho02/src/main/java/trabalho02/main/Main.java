@@ -124,9 +124,9 @@ public class Main {
 	}
 
 	private static void associarEntidades() {
-		System.out.println("Identificador do filme: ");
+		System.out.print("Identificador do filme: ");
 		Filme filme = filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
-		System.out.println("Identificador do ator: ");
+		System.out.print("Identificador do ator: ");
 		Ator ator = atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
 
 		filme.adicionarParticipacaoDo(ator);
@@ -144,13 +144,13 @@ public class Main {
 	}
 
 	private static void listarAtoresDeUmFilme() {
-		System.out.println("Identificador do filme: ");
+		System.out.print("Identificador do filme: ");
 		filmeDao.findNamesOfAllActorsIn(filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine())))
 				.forEach(System.out::println);
 	}
 
 	private static void listarAtorPorAnoDeNascimento() {
-		System.out.println("Ano: ");
+		System.out.print("Ano: ");
 		atorDao.findNamesOfAllActorsBornIn(Year.of(Integer.parseInt(teclado.nextLine()))).forEach(System.out::println);
 	}
 
@@ -159,18 +159,18 @@ public class Main {
 	}
 
 	private static void listarFilmesDeUmAtor() {
-		System.out.println("Identificador do ator: ");
+		System.out.print("Identificador do ator: ");
 		atorDao.findTitlesOfAllMoviesWith(atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine())))
 				.forEach(System.out::println);
 	}
 
 	public static void listarFilmesPorSubstring() {
-		System.out.println("Termo de busca: ");
+		System.out.print("Termo de busca: ");
 		filmeDao.findTitlesOfAllMoviesContaining(teclado.nextLine()).forEach(System.out::println);
 	}
 
 	private static void modificarAtor() {
-		System.out.println("Identificador do ator: ");
+		System.out.print("Identificador do ator: ");
 		Ator ator = atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
 
 		System.out.print("Novo nome do ator: ");
@@ -182,7 +182,7 @@ public class Main {
 	}
 
 	private static void modificarFilme() {
-		System.out.println("Identificador do filme: ");
+		System.out.print("Identificador do filme: ");
 		Filme filme = filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine()));
 
 		System.out.print("Novo título do filme: ");
@@ -194,22 +194,22 @@ public class Main {
 	}
 
 	private static void mostrarAtor() {
-		System.out.println("Identificador do ator: ");
+		System.out.print("Identificador do ator: ");
 		System.out.println(atorDao.findByIdentifier(Integer.parseInt(teclado.nextLine())));
 	}
 
 	private static void mostrarFilme() {
-		System.out.println("Identificador do filme: ");
+		System.out.print("Identificador do filme: ");
 		System.out.println(filmeDao.findByIdentifier(Integer.parseInt(teclado.nextLine())));
 	}
 
 	private static void removerAtor() {
-		System.out.println("Identificador do ator: ");
+		System.out.print("Identificador do ator: ");
 		atorDao.deleteByIdentifier(Integer.parseInt(teclado.nextLine()));
 	}
 
 	private static void removerFilme() {
-		System.out.println("Identificador do filme: ");
+		System.out.print("Identificador do filme: ");
 		filmeDao.deleteByIdentifier(Integer.parseInt(teclado.nextLine()));
 	}
 
