@@ -25,10 +25,14 @@ public class Main {
 	}
 
 	private static boolean menu() {
-		listarComandos();
+		System.out.println("Dica: use 'listar-comandos' para listar todos os comandos disponíveis.");
 		System.out.print(" > ");
-
 		String comando = teclado.nextLine();
+		while (comando.equals("listar-comandos")) {
+			listarComandos();
+			System.out.print(" > ");
+			comando = teclado.nextLine();
+		}
 
 		if (comando.equals("0") || comando.equals("sair")) {
 			return false;
