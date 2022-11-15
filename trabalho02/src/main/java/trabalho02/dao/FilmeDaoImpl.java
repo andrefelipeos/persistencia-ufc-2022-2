@@ -27,7 +27,7 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public List<Filme> findAll() {
-		return entityManager.createQuery("SELECT filme FROM Filme filme", Filme.class).getResultList();
+		return entityManager.createNamedQuery("Filme.buscaTodos", Filme.class).getResultList();
 	}
 
 	@Override

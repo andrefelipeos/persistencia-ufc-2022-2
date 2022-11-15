@@ -9,10 +9,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "filmes")
+@NamedQuery(name = "Filme.buscaTodos", query = "SELECT filme FROM Filme filme")
 public class Filme {
 
 	@Id
