@@ -2,6 +2,7 @@ package trabalho02.main;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import trabalho02.dao.AtorDao;
@@ -105,10 +106,10 @@ public class Main {
 
 		System.out.print("Nome do ator: ");
 		nomeDoAtor = teclado.nextLine();
-		System.out.print("Data do nascimento do ator: ");
+		System.out.print("Data do nascimento do ator no formato DD-MM-AAAA: ");
 		dataDeNascimento = teclado.nextLine();
 
-		atorDao.save(new Ator(nomeDoAtor, LocalDate.parse(dataDeNascimento)));
+		atorDao.save(new Ator(nomeDoAtor, LocalDate.parse(dataDeNascimento, DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
 	}
 
 	private static void adicionarFilme() {

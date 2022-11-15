@@ -1,6 +1,7 @@
 package trabalho02.modelos;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class Ator {
 
 	@Override
 	public String toString() {
-		return identificador + ": " + nome + ", nascido em " + dataDeNascimento.toString();
+		return identificador + ": " + nome + ", nascido em " + dataDeNascimento.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 	}
 
 	public void adicionarParticipacaoNo(Filme filme) {
