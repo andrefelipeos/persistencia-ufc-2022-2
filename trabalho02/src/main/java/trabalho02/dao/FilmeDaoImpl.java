@@ -53,7 +53,7 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public long findTotalNumberOfRegisteredMovies() {
-		return entityManager.createQuery("SELECT COUNT(filme) FROM Filme filme", Long.class).getSingleResult();
+		return (long) entityManager.createNativeQuery("SELECT COUNT(*) FROM filmes", Long.class).getSingleResult();
 	}
 
 	@Override
