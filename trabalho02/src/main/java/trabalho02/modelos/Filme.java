@@ -4,6 +4,7 @@ import java.time.Year;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Filme {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer identificador;
 	private String titulo;
+
+	@Column(name = "ano_de_lancamento")
 	private Year anoDeLancamento;
 
 	@ManyToMany

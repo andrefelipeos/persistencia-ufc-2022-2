@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Ator {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer identificador;
 	private String nome;
+
+	@Column(name = "data_de_nascimento")
 	private LocalDate dataDeNascimento;
 
 	@ManyToMany(mappedBy = "atores")
