@@ -67,7 +67,7 @@ public class Main {
 			listarFilmesDeUmAtor();
 		} else if (comando.equals("15") || comando.equals("filmes-por-substring")) {
 			listarFilmesPorSubstring();
-		} else if (comando.equals("16") || comando.equals("ator-por-ano-nascimento")) {
+		} else if (comando.equals("16") || comando.equals("atores-por-ano-nascimento")) {
 			listarAtorPorAnoDeNascimento();
 		}
 
@@ -90,9 +90,9 @@ public class Main {
 		System.out.println("11 - associar-entidades");
 		System.out.println("12 - filmes-por-ano");
 		System.out.println("13 - atores-do-filme");
-		System.out.println("14 - filme-do-ator");
+		System.out.println("14 - filmes-do-ator");
 		System.out.println("15 - filmes-por-substring");
-		System.out.println("16 - ator-por-ano-nascimento");
+		System.out.println("16 - atores-por-ano-nascimento");
 	}
 
 	private static void adicionarAtor() {
