@@ -63,11 +63,17 @@ public class Main {
 			listarFilmesPorSubstring();
 		} else if (comando.equals("16") || comando.equals("atores-por-ano-nascimento")) {
 			listarAtorPorAnoDeNascimento();
-		} else if (comando.equals("17") || comando.equals("listar-comandos")) {
+		} else if (comando.equals("17") || comando.equals("quantidade-de-filmes")) {
+			mostraQuantidadeTotalDeFilmesCadastrados();
+		} else if (comando.equals("18") || comando.equals("listar-comandos")) {
 			listarComandos();
 		}
 
 		return true;
+	}
+
+	private static void mostraQuantidadeTotalDeFilmesCadastrados() {
+		System.out.println(filmeDao.findTotalNumberOfRegisteredMovies());
 	}
 
 	private static void listarComandos() {
@@ -89,6 +95,8 @@ public class Main {
 		System.out.println("14 - filmes-do-ator");
 		System.out.println("15 - filmes-por-substring");
 		System.out.println("16 - atores-por-ano-nascimento");
+		System.out.println("17 - quantidade-de-filmes");
+		System.out.println("18 - listar-comandos");
 	}
 
 	private static void adicionarAtor() {
