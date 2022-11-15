@@ -34,20 +34,20 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public List<String> findNamesOfAllActorsIn(Filme filme) {
-		String jpqlQuery = "SELECT ator.nome FROM Filme filme JOIN filme.atores ator WHERE filme.identificador = " + filme.getIdentificador();
-		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
+		String jpqlQuery = "SELECT ator.nome FROM Filme filme JOIN filme.atores ator WHERE filme.identificador = :identificador";
+		return entityManager.createQuery(jpqlQuery, String.class).setParameter("identificador", filme.getIdentificador()).getResultList();
 	}
 
 	@Override
 	public List<String> findTitlesOfAllMoviesContaining(String substring) {
-		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.titulo LIKE '%" + substring + "%'";
-		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
+		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.titulo LIKE :string";
+		return entityManager.createQuery(jpqlQuery, String.class).setParameter("string", "%" + substring + "%").getResultList();
 	}
 
 	@Override
-	public List<String> findTitlesOfAllMoviesReleasedIn(Year year) {
-		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.anoDeLancamento = " + year.toString();
-		return entityManager.createQuery(jpqlQuery, String.class).getResultList();
+	public List<String> findTitlesOfAllMoviesReleasedIn(Year ano) {
+		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.anoDeLancamento = :ano";
+		return entityManager.createQuery(jpqlQuery, String.class).setParameter("ano",  ano).getResultList();
 	}
 
 	@Override
