@@ -1,7 +1,6 @@
 package trabalho02.main;
 
 import java.time.LocalDate;
-import java.time.MonthDay;
 import java.time.Year;
 import java.util.Scanner;
 
@@ -19,14 +18,10 @@ public class Main {
 	private static AtorDao atorDao = new AtorDaoImpl();
 
 	public static void main(String[] args) {
-		boolean exit;
+		boolean repeat;
 		do {
-			exit = menu();
-		} while (!exit);
-
-		System.out.println(filmeDao.findTotalNumberOfRegisteredMovies());
-		Year year = Year.of(1997);
-		System.out.println(year.atMonthDay(MonthDay.of(1, 1)));
+			repeat = menu();
+		} while (repeat);
 	}
 
 	private static boolean menu() {
@@ -36,7 +31,7 @@ public class Main {
 		String comando = teclado.nextLine();
 
 		if (comando.equals("0") || comando.equals("sair")) {
-			return true;
+			return false;
 		} else if (comando.equals("1") || comando.equals("listar-filmes")) {
 			listarFilmes();
 		} else if (comando.equals("2") || comando.equals("adicionar-filme")) {
@@ -71,7 +66,7 @@ public class Main {
 			listarAtorPorAnoDeNascimento();
 		}
 
-		return false;
+		return true;
 	}
 
 	private static void listarComandos() {
