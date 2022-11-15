@@ -30,24 +30,7 @@ public class Main {
 	}
 
 	private static boolean menu() {
-		System.out.println("OPÇÕES:");
-		System.out.println("0 - sair");
-		System.out.println("1 - listar-filmes");
-		System.out.println("2 - adicionar-filme");
-		System.out.println("3 - mostrar-filme");
-		System.out.println("4 - remover-filme");
-		System.out.println("5 - modificar-filme");
-		System.out.println("6 - listar-atores");
-		System.out.println("7 - adicionar-ator");
-		System.out.println("8 - mostrar-ator");
-		System.out.println("9 - remover-ator");
-		System.out.println("10 - modificar-ator");
-		System.out.println("11 - associar-entidades");
-		System.out.println("12 - filmes-por-ano");
-		System.out.println("13 - atores-do-filme");
-		System.out.println("14 - filme-do-ator");
-		System.out.println("15 - filmes-por-substring");
-		System.out.println("16 - ator-por-ano-nascimento");
+		listarComandos();
 		System.out.print(" > ");
 
 		String comando = teclado.nextLine();
@@ -89,6 +72,27 @@ public class Main {
 		}
 
 		return false;
+	}
+
+	private static void listarComandos() {
+		System.out.println("OPÇÕES:");
+		System.out.println("0 - sair");
+		System.out.println("1 - listar-filmes");
+		System.out.println("2 - adicionar-filme");
+		System.out.println("3 - mostrar-filme");
+		System.out.println("4 - remover-filme");
+		System.out.println("5 - modificar-filme");
+		System.out.println("6 - listar-atores");
+		System.out.println("7 - adicionar-ator");
+		System.out.println("8 - mostrar-ator");
+		System.out.println("9 - remover-ator");
+		System.out.println("10 - modificar-ator");
+		System.out.println("11 - associar-entidades");
+		System.out.println("12 - filmes-por-ano");
+		System.out.println("13 - atores-do-filme");
+		System.out.println("14 - filme-do-ator");
+		System.out.println("15 - filmes-por-substring");
+		System.out.println("16 - ator-por-ano-nascimento");
 	}
 
 	private static void adicionarAtor() {
