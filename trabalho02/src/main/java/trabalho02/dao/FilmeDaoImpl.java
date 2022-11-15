@@ -44,10 +44,11 @@ public class FilmeDaoImpl implements FilmeDao {
 		return entityManager.createQuery(jpqlQuery, String.class).setParameter("string", "%" + substring + "%").getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> findTitlesOfAllMoviesReleasedIn(Year ano) {
-		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.anoDeLancamento = :ano";
-		return entityManager.createQuery(jpqlQuery, String.class).setParameter("ano",  ano).getResultList();
+		String sqlQuery = "SELECT titulo FROM filmes WHERE anoDeLancamento = :ano";
+		return entityManager.createNativeQuery(sqlQuery, String.class).setParameter("ano", ano).getResultList();
 	}
 
 	@Override
