@@ -41,7 +41,7 @@ public class Filme {
 
 	@Override
 	public String toString() {
-		return titulo + " (" + anoDeLancamento.toString() + ")";
+		return identificador + ": " + titulo + " (" + anoDeLancamento.toString() + ")";
 	}
 
 	public void adicionarParticipacaoDo(Ator ator) {

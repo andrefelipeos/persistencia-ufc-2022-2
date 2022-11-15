@@ -18,6 +18,7 @@ public class Main {
 	private static AtorDao atorDao = new AtorDaoImpl();
 
 	public static void main(String[] args) {
+		System.out.println("Dica: use 'listar-comandos' para listar todos os comandos disponíveis.");
 		boolean repeat;
 		do {
 			repeat = menu();
@@ -25,14 +26,8 @@ public class Main {
 	}
 
 	private static boolean menu() {
-		System.out.println("Dica: use 'listar-comandos' para listar todos os comandos disponíveis.");
 		System.out.print(" > ");
 		String comando = teclado.nextLine();
-		while (comando.equals("listar-comandos")) {
-			listarComandos();
-			System.out.print(" > ");
-			comando = teclado.nextLine();
-		}
 
 		if (comando.equals("0") || comando.equals("sair")) {
 			return false;
@@ -68,6 +63,8 @@ public class Main {
 			listarFilmesPorSubstring();
 		} else if (comando.equals("16") || comando.equals("atores-por-ano-nascimento")) {
 			listarAtorPorAnoDeNascimento();
+		} else if (comando.equals("17") || comando.equals("listar-comandos")) {
+			listarComandos();
 		}
 
 		return true;

@@ -41,7 +41,7 @@ public class Ator {
 
 	@Override
 	public String toString() {
-		return nome + ", nascido em " + dataDeNascimento.toString();
+		return identificador + ": " + nome + ", nascido em " + dataDeNascimento.toString();
 	}
 
 	public void adicionarParticipacaoNo(Filme filme) {
