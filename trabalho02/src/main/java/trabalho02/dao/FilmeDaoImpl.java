@@ -4,6 +4,9 @@ import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import trabalho02.modelos.Filme;
 import trabalho02.util.JPAUtil;
 
@@ -44,11 +47,15 @@ public class FilmeDaoImpl implements FilmeDao {
 		return entityManager.createQuery(jpqlQuery, String.class).setParameter("string", "%" + substring + "%").getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> findTitlesOfAllMoviesReleasedIn(Year ano) {
-		String sqlQuery = "SELECT titulo FROM filmes WHERE anoDeLancamento = :ano";
-		return entityManager.createNativeQuery(sqlQuery, String.class).setParameter("ano", ano).getResultList();
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<String> criteriaQuery = criteriaBuilder.createQuery(String.class);
+		Root<Filme> root = criteriaQuery.from(Filme.class);
+		criteriaQuery.select(root.get("titulo"));
+		criteriaQuery.where(criteriaBuilder.equal(root.get("anoDeLancamento"), ano));
+
+		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
