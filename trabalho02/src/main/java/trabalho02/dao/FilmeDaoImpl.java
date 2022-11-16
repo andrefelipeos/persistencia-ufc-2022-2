@@ -43,8 +43,8 @@ public class FilmeDaoImpl implements FilmeDao {
 
 	@Override
 	public List<String> findTitlesOfAllMoviesContaining(String substring) {
-		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE filme.titulo LIKE :string";
-		return entityManager.createQuery(jpqlQuery, String.class).setParameter("string", "%" + substring + "%").getResultList();
+		String jpqlQuery = "SELECT filme.titulo FROM Filme filme WHERE UPPER(filme.titulo) LIKE :string";
+		return entityManager.createQuery(jpqlQuery, String.class).setParameter("string", "%" + substring.toUpperCase() + "%").getResultList();
 	}
 
 	@Override
